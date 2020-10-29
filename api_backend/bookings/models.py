@@ -1,5 +1,6 @@
 from django.db import models
 from interpreters.models import Interpreter
+from django.contrib.auth.models import User
 # Create your models here.
 class Bookings(models.Model):
     STATUS_OPTIONS = (
@@ -19,5 +20,6 @@ class Bookings(models.Model):
         editable=True,
     )
     interpreter = models.ForeignKey(Interpreter, on_delete=models.CASCADE)
-
+    user = models.ForeignKey(
+            User, related_name="bookings", on_delete=models.CASCADE, null=True)
 

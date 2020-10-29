@@ -6,5 +6,7 @@ class InterpreterViewSet(viewsets.ModelViewSet):
     queryset=Interpreter.objects.all()
     permission_classes=[
         permissions.AllowAny
+        # permissions.IsAuthenticated >>>>>>>>> for production enforce authentication
+
     ]
     serializer_class = InterpreterSerializer
