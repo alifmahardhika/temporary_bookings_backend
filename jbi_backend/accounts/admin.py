@@ -35,7 +35,6 @@ class UserDetailsAdmin(admin.ModelAdmin):
         "phone",
         "gender",
         "user_photo",
-        "last_updated",
     )
     list_display = (
         "user",
