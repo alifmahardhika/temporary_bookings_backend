@@ -26,6 +26,7 @@ class GetJBIViewset(generics.GenericAPIView):
         for u in users:
             details = UserDetails.objects.get(user=u)
             d = {
+                "user_id": u.id,
                 "role": details.role,
                 "name": u.username,
                 "phone": details.phone,
@@ -36,6 +37,7 @@ class GetJBIViewset(generics.GenericAPIView):
             if details.role == "JBI":
                 jbi_details = JBIDetails.objects.get(jbi_username=u.username)
                 d = {
+                    "user_id": u.id,
                     "role": details.role,
                     "name": u.username,
                     "lembaga": jbi_details.nama_lembaga,

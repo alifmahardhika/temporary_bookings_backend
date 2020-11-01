@@ -74,6 +74,7 @@ class SelfDetailsAPI(generics.GenericAPIView):
             jbi_details = JBIDetails.objects.get(jbi_username=user.username)
             return Response(
                 {
+                    "user_id": user.id,
                     "name": user.username,
                     "lembaga": jbi_details.nama_lembaga,
                     "phone": details.phone,
@@ -86,6 +87,7 @@ class SelfDetailsAPI(generics.GenericAPIView):
 
         return Response(
             {
+                "user_id": user.id,
                 "name": user.username,
                 "phone": details.phone,
                 "email": user.email,
