@@ -1,4 +1,5 @@
-from rest_framework import generics, permissions
+from rest_framework import viewsets, permissions, generics, status
+
 from rest_framework.response import Response
 from knox.models import AuthToken
 from django.contrib.auth.models import User
@@ -6,8 +7,11 @@ from .serializers import (
     RegisterSerializer,
     UserSerializer,
     LoginSerializer,
+    UserDetailsSerializer,
 )
 import re
+from accounts.models import User, UserDetails, JBIDetails
+
 
 # register api
 class RegisterAPI(generics.GenericAPIView):
@@ -55,3 +59,37 @@ class UserApi(generics.RetrieveAPIView):
     # TODO diganti returnnya supaya lebih detailed
     def get_object(self):
         return self.request.user
+
+
+# api untuk update user details (BUKAN JBI details)
+class SelfDetailsAPI(generics.GenericAPIView):
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+
+    def get(self, request):
+        details = UserDetails.objects.get(user=self.request.user)
+        user = self.request.user
+        if details.role == "JBI":
+            jbi_details = JBIDetails.objects.get(jbi_username=user.username)
+            return Response(
+                {
+                    "name": user.username,
+                    "lembaga": jbi_details.nama_lembaga,
+                    "phone": details.phone,
+                    "email": user.email,
+                    "gender": details.gender,
+                    "is_available": not jbi_details.is_nonactive,
+                    "diluar_jadwal": jbi_details.diluar_jadwal,
+                }
+            )
+
+        return Response(
+            {
+                "name": user.username,
+                "phone": details.phone,
+                "email": user.email,
+                "gender": details.gender,
+                "is_activated": details.is_activated,
+            }
+        )
