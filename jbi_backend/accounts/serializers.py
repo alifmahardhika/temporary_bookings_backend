@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from .models import JBIDetails
 
 # user serializer
 class UserSerializer(serializers.ModelSerializer):
