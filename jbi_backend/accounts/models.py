@@ -14,6 +14,8 @@ class JBIDetails(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
     diluar_jadwal = models.BooleanField(default=False, editable=True)
     is_nonactive = models.BooleanField(default=False, editable=True)
+    jbi_user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    jbi_username = models.CharField(max_length=30, blank=False, primary_key=True)
 
 
 class UserDetails(models.Model):

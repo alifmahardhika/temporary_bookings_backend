@@ -17,14 +17,24 @@ class UserAdmin(BaseUserAdmin):
 
 
 class JBIDetailsAdmin(admin.ModelAdmin):
-    fields = ("nama_lembaga", "email_lembaga", "diluar_jadwal", "is_nonactive")
+    fields = (
+        "jbi_username",
+        "nama_lembaga",
+        "email_lembaga",
+        "diluar_jadwal",
+        "is_nonactive",
+        "jbi_user",
+    )
     list_display = (
+        "jbi_username",
+        "jbi_user",
         "nama_lembaga",
         "email_lembaga",
         "diluar_jadwal",
         "is_nonactive",
         "last_updated",
     )
+    # readonly_fields = ["jbi_username"]
 
 
 class UserDetailsAdmin(admin.ModelAdmin):
