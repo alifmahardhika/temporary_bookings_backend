@@ -3,8 +3,15 @@ from .models import Appointment
 
 # Register your models here.
 class AppointmentAdmin(admin.ModelAdmin):
-    fields = ("status",)
-    list_display = ("id", "status", "created", "last_update")
+    fields = ("status", "booked_jbi")
+    list_display = (
+        "id",
+        "status",
+        "user_creator",
+        "booked_jbi",
+        "created",
+        "last_update",
+    )
 
 
 admin.site.register(Appointment, AppointmentAdmin)
