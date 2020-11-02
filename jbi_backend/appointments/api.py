@@ -20,33 +20,19 @@ class GetJBIViewset(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        det_list = []
-
-        users = User.objects.all()
-        for u in users:
-            details = UserDetails.objects.get(user=u)
-            d = {
-                "user_id": u.id,
-                "role": details.role,
-                "name": u.username,
+        details = UserDetails.objects.get(role="JBI")
+        user = details.user
+        jbi_details = JBIDetails.objects.get(jbi_username=user.username)
+        return Response(
+            {
+                "user_id": user.id,
+                "name": user.username,
+                "lembaga": jbi_details.nama_lembaga,
                 "phone": details.phone,
-                "email": u.email,
+                "email": user.email,
                 "gender": details.gender,
-                "is_activated": details.is_activated,
+                "is_available": not jbi_details.is_nonactive,
+                "diluar_jadwal": jbi_details.diluar_jadwal,
+                "note": jbi_details.note,
             }
-            if details.role == "JBI":
-                jbi_details = JBIDetails.objects.get(jbi_username=u.username)
-                d = {
-                    "user_id": u.id,
-                    "role": details.role,
-                    "name": u.username,
-                    "lembaga": jbi_details.nama_lembaga,
-                    "phone": details.phone,
-                    "email": u.email,
-                    "gender": details.gender,
-                    "is_activated": details.is_activated,
-                    "is_available": not jbi_details.is_nonactive,
-                    "diluar_jadwal": jbi_details.diluar_jadwal,
-                }
-            det_list.append(d)
-        return Response(det_list)
+        )
