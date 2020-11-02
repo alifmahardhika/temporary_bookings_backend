@@ -13,7 +13,7 @@ class AppointmentViewset(viewsets.ModelViewSet):
         return self.request.user.user_appointments.all()
 
     def perform_create(self, serializer):
-        serializer.save(user_creator=self.request.user)
+        return serializer.save(user_creator=self.request.user.id)
 
 
 class GetJBIViewset(generics.GenericAPIView):

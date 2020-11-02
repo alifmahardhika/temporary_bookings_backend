@@ -9,6 +9,8 @@ class AppointmentAdmin(admin.ModelAdmin):
         "status",
         "user_creator",
         "booked_jbi",
+        "start_time",
+        "end_time",
         "created",
         "last_update",
     )

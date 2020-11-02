@@ -33,3 +33,5 @@ class Appointment(models.Model):
         editable=True,
         blank=True,
     )
+    start_time = models.DateTimeField(blank=False, editable=True)
+    end_time = models.DateTimeField(blank=False, editable=True)
