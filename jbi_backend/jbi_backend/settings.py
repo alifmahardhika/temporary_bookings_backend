@@ -25,7 +25,7 @@ SECRET_KEY = "k4a3p!u(bt2wee-*ks74n3hxe4q)s9s=fxi*xuow+9h)wg&-ht"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "api-signteraktif.herokuapp.com"]
 
 
 # Application definition
